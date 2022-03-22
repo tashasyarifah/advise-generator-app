@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import styled from "styled-components"
 
 //Styles for the overall app
@@ -6,6 +6,7 @@ import styled from "styled-components"
 const Container = styled.div `
     background-color: hsl(217, 19%, 24%);
     display: grid;
+    place-items: center;
     border-radius: 6%;
     outline: none;
     padding: 80px;
@@ -23,6 +24,13 @@ const Quote = styled.p`
     color: hsl(193, 38%, 86%);
     font-size: 1em;
 `
+//Divider
+const Divider = styled.svg`
+    width: 295px;
+    height: 16px;
+    padding: 0;
+`
+
 //For the button
 const Button = styled.button`
     border-radius: 50%;
@@ -30,14 +38,13 @@ const Button = styled.button`
     width: 40px;
     background-color: hsl(150, 100%, 66%);
     cursor: pointer;
-    position: relative;
-    top: 110%;
-    left: 30%;
     
+    :hover {
+        box-shadow: 0 0 10px 9px hsl(150, 50%, 60%);
+    }
 `
 //It is for the icon inside the button
 const Icon = styled.svg`
-    transition: fill 0.24s;
     width: 24px;
     height: 24px;
 
@@ -45,9 +52,7 @@ const Icon = styled.svg`
 
 export default function Advise() {
 
-    const [quotes, setQuotes] = useState({
-        random: "",
-    })
+   
 
     useEffect(() => {
     fetch("https://api.adviceslip.com/advice")
@@ -55,18 +60,18 @@ export default function Advise() {
         .then(data => console.log(data))
     }, [])
 
-    function getRandomQuote() {
-        setQuotes (prevQuotes => ({
-            ...prevQuotes,
-        }))
-
-    }
-
     return (
         <Container>
-            <SmallText>Advise #1</SmallText>
-            <Quote>{quotes.random}</Quote>
-            <Button onClick={getRandomQuote}> 
+            <SmallText>Advise #</SmallText>
+            <Quote>Texts goes here</Quote>
+            <Divider>
+                <path fill="#4F5D74" d="M0 8h122v1H0zM173 8h122v1H173z"/>
+                <g transform="translate(138)" fill="#CEE3E9">
+                    <rect width="6" height="16" rx="3"/>
+                    <rect x="12" width="6" height="16" rx="3"/>
+                </g>
+            </Divider>
+            <Button> 
                 <Icon>
                     <path d="M20 0H4a4.005 4.005 0 0 0-4 4v16a4.005 4.005 0 0 0 4 4h16a4.005 4.005 0 0 0 4-4V4a4.005 4.005 0 0 0-4-4ZM7.5 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0-9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0-9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" fill="#202733"/>
                 </Icon>
