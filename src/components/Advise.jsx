@@ -46,30 +46,28 @@ const Icon = styled.svg`
 
 `
 export default function Advise() {
-   const [getId, setGetId] = useState(196)
-   const [getAdvice, setGetAdvice] = useState("Have a firm handshake.")
-  
+    const [getId, setGetId] = useState("")
+    const [getAdvice, setGetAdvice] = useState("")
 
     useEffect(() => {
-    fetch("https://api.adviceslip.com/advice")
-        .then(res => res.json())
-        .then(data => {
+        async function getAdvices() {
+            const res = await fetch("https://api.adviceslip.com/advice")
+            const data = await res.json()
             setGetId(data.slip.id)
-            setGetAdvice(data.slip.advice);
-        })
-        
+            setGetAdvice(data.slip.advice)
+        } 
+        getAdvices()
     }, [])
 
-    function toGetNewAdvice() {
-        console.log("Clicked")
-       
-    }
-    
+        function getRandomAdvice() {
+            console.log("clicked")
+        }
+
     return (
         <Container>
             <SmallText>Advice #{getId}</SmallText>
             <Quote>{getAdvice}</Quote>
-            <Button onClick={toGetNewAdvice}>  
+            <Button onClick={getRandomAdvice}>  
                 <Icon>
                     <path d="M20 0H4a4.005 4.005 0 0 0-4 4v16a4.005 4.005 0 0 0 4 4h16a4.005 4.005 0 0 0 4-4V4a4.005 4.005 0 0 0-4-4ZM7.5 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0-9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0-9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" fill="#202733"/>
                 </Icon>
